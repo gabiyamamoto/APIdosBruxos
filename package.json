@@ -1,0 +1,26 @@
+{
+  "name": "apidosbruxos",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cls && nodemon server.js"
+  },
+  "keywords": [
+    "Harry Potter",
+    "server",
+    "Node.js",
+    "wizards",
+    "backend",
+    "javascript",
+    "js"
+  ],
+  "author": "Gabi",
+  "license": "MIT",
+  "description": "Activity: a backend service for a wizards themed application",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
