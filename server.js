@@ -96,6 +96,26 @@ app.get("/bruxos/nome/:nome", (req, res) => {
   }
 });
 
+//Rota GET by casa
+app.get("/bruxos/casa/:casa", (req, res) => {
+
+  //Pegar a casa da URL
+  let casa = req.params.casa;
+
+  //Buscar no array/objeto/json
+  const bruxosDaCasa = bruxos.filter(b => b.casa.toLowerCase() === casa.toLowerCase());
+
+  if (bruxosDaCasa.length > 0) {
+    //Se existir, enviar na resposta com o res e o status 200
+    res.status(200).json(bruxosDaCasa);
+  } else {
+    //Se não existir, enviar na resposta um feedback o e status 400
+    res.status(404).json({
+      message: "Nenhum bruxo encontrado nessa casa!"
+    });
+  }
+});
+
 app.listen(serverPort, () => {
     console.log(`⚡ Servidor Hogwarts iniciado em: http://localhost:${serverPort}`);
     console.log(`🧙‍♂️ API dos Bruxos está no ar na porta ${serverPort}!`);
