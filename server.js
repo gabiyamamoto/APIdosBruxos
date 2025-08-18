@@ -41,7 +41,32 @@ app.get('/', (req, res) => {
 });
 
 app.get("/bruxos", (req, res) => {
-    res.json(bruxos);
+    res.json({
+      success: true,
+      message: "Todos os bruxos de Hogwarts! 🏰",
+      data: bruxos,
+      total: `${bruxos.length} bruxos`
+    });
+});
+
+//Rota GET by ID
+app.get("/bruxos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const bruxo = bruxos.find(b => b.id === id);
+
+  if (bruxo) {
+    res.status(200).json({
+      success: true,
+      message: `Bruxo ${bruxo.nome} encontrado!`,
+      data: bruxo
+    });
+ } else {
+    res.status(404).json({
+      error: "Bruxo não encontrado...",
+      message: `Nenhum bruxo com ID ${id} foi encontrado`,
+      codigo: "WIZARD_NOT_FOUND"
+    });
+ }
 });
 
 app.listen(serverPort, () => {
