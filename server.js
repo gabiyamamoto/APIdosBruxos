@@ -51,22 +51,49 @@ app.get("/bruxos", (req, res) => {
 
 //Rota GET by ID
 app.get("/bruxos/:id", (req, res) => {
+
+  //Pegar o id da URL e transformar em number
   const id = parseInt(req.params.id);
+
+  //Buscar no array/objeto/json
   const bruxo = bruxos.find(b => b.id === id);
 
+    //Verificar se existe
   if (bruxo) {
+    //Se existir, enviar na resposta com o res e o status 200
     res.status(200).json({
       success: true,
       message: `Bruxo ${bruxo.nome} encontrado!`,
       data: bruxo
     });
  } else {
+    //Se não existir, enviar na resposta um feeedback e o status 404
     res.status(404).json({
       error: "Bruxo não encontrado...",
       message: `Nenhum bruxo com ID ${id} foi encontrado`,
       codigo: "WIZARD_NOT_FOUND"
     });
  }
+});
+
+//Rota GET by name
+app.get("/bruxos/nome/:nome", (req, res) => {
+
+  //Pegar o nome da URL
+  let nome = req.params.nome.toLowerCase();
+
+  //Buscar no array/objeto/json usando "constains"
+  const nomesEncontrados = bruxos.filter(b => b.nome.toLowerCase().includes(nome));
+
+  if (nomesEncontrados.length > 0) {
+    //Se encontrar, retorna todos os que batem com o nome
+    res.status(200).json(nomesEncontrados);
+  } else {
+    //Se não existir, enviar feedback e status 404
+    res.status(404).json({
+      message: "Bruxo(s) não encontrado(s)!"
+    });
+  }
 });
 
 app.listen(serverPort, () => {
