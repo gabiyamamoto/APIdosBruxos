@@ -1,8 +1,10 @@
 import express from "express";
-import bruxos from "./src/data/bruxos.js";
+import dados from "./src/data/dados.js";
+
+//Puxar os itens
+const { bruxos, casas, varinhas, animais, pocoes } = dados;
 
 const serverPort = 3000;
-
 const app = express();
 
 app.use(express.json());
@@ -41,12 +43,13 @@ app.get('/', (req, res) => {
 });
 
 app.get("/bruxos", (req, res) => {
-    res.json({
-      success: true,
-      message: "Todos os bruxos de Hogwarts! 🏰",
-      data: bruxos,
-      total: `${bruxos.length} bruxos`
-    });
+    if (bruxos.length > 0) {
+      res.status(200).json(bruxos);
+    } else {
+      res.status(404).json({
+        message: "Nenhum bruxo encontrado!"
+      })
+    }
 });
 
 //Rota GET by ID
@@ -125,7 +128,51 @@ app.get("/bruxos/vivos/nao", (req, res) => {
   } else {
     res.status(404).json({ erro: "Nenhum bruxo morto encontrado 💀"})
   }
-})
+});
+
+app.get("/casas", (req, res) => {
+
+  if (casas.length > 0) {
+    res.status(200).json(casas);
+  } else {
+    res.status(404).json({
+      message: "Nenhuma casas encontrada!"
+    })
+  }
+});
+
+app.get("/varinhas", (req, res) => {
+
+  if (varinhas.length > 0) {
+    res.status(200).json(varinhas);
+  } else {
+    res.status(404).json({
+      message: "Nenhuma varinha encontrada!"
+    })
+  }
+});
+
+app.get("/animais", (req, res) => {
+
+  if (animais.length > 0) {
+    res.status(200).json(animais);
+  } else {
+    res.status(404).json({
+      message: "Nenhum animal encontrado!"
+    })
+  }
+});
+
+app.get("/pocoes", (req, res) => {
+
+  if (pocoes.length > 0) {
+    res.status(200).json(pocoes);
+  } else {
+    res.status(404).json({
+      message: "Nenhuma poção encontrada!"
+    })
+  }
+});
 
 app.listen(serverPort, () => {
     console.log(`⚡ Servidor Hogwarts iniciado em: http://localhost:${serverPort}`);
