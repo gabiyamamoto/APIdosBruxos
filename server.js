@@ -152,6 +152,20 @@ app.get("/varinhas", (req, res) => {
   }
 });
 
+app.get("/varinhas/:id", (req, res) => {
+  
+  const id = parseInt(req.params.id);
+  const varinha = varinhas.find(v => v.id === id);
+
+  if (varinha) {
+    res.status(200).json(varinha);
+  } else {
+    res.status(404).json({
+      message: "Nenhuma varinha encontrada!"
+    })
+  }
+});
+
 app.get("/animais", (req, res) => {
 
   if (animais.length > 0) {
@@ -163,10 +177,38 @@ app.get("/animais", (req, res) => {
   }
 });
 
+app.get("/animais/:id", (req, res) => {
+  
+  const id = parseInt(req.params.id);
+  const animal = animais.find(a => a.id === id);
+
+  if (animal) {
+    res.status(200).json(animal);
+  } else {
+    res.status(404).json({
+      message: "Nenhum animal encontrado!"
+    })
+  }
+});
+
 app.get("/pocoes", (req, res) => {
 
   if (pocoes.length > 0) {
     res.status(200).json(pocoes);
+  } else {
+    res.status(404).json({
+      message: "Nenhuma poção encontrada!"
+    })
+  }
+});
+
+app.get("/pocoes/:id", (req, res) => {
+  
+  const id = parseInt(req.params.id);
+  const pocao = pocoes.find(p => p.id === id);
+
+  if (pocao) {
+    res.status(200).json(pocao);
   } else {
     res.status(404).json({
       message: "Nenhuma poção encontrada!"
